@@ -1,9 +1,12 @@
 import pandas
 from sklearn import svm
+
 import sklearn
 import csv
 import matplotlib.pyplot as plt  # To visualize
 from sklearn.linear_model import LinearRegression
+
+import numpy as np
 
 
 
@@ -44,7 +47,7 @@ def svm():
     print("https://scikit-learn.org/stable/modules/svm.html#svm-classification")
     print("https://www.kaggle.com/sudalairajkumar/novel-corona-virus-2019-dataset/data?select=covid_19_data.csv")
     data = readCVS()
-    ID = data.iloc[:, 1].values.reshape(-1, 1)  # values converts it into a numpy array
+    ID = data.iloc[:, 0].values.reshape(-1, 1)  # values converts it into a numpy array
     X = data.iloc[:, 5].values.reshape(-1, 1)  # values converts it into a numpy array
     Y = data.iloc[:, 6].values.reshape(-1, 1)  # -1 means that calculate the dimension of rows, but have 1 column
     print("ID")
@@ -53,7 +56,15 @@ def svm():
     print(X)
     print("DEATHS")
     print(Y)
+    infectados = 0
+    for x in X:
+        infectados += x[0]
+    muertos = 0
+    for x in Y:
+        muertos += x[0]
 
+    print(infectados)
+    print(muertos)
     newY = []
     for x in Y:
         #print(x[0])
@@ -65,11 +76,18 @@ def svm():
         newX.append(int(x))
     #print(newX)
 
-    XY = [newX, newY]
-    clf = sklearn.svm.SVC()
-    clf.fit(X, newY)
+    regr = sklearn.svm.SVR()
+    regr.fit(ID, X)
+
+    ypred = regr.predict([[34215]])
+    print(ypred)
+
+    ypred = regr.predict(X)
+    print(ypred)
 
 
+    plt.plot(ID, X, color='red')
+    plt.show()
     print("END")
 if __name__ == '__main__':
     svm()
