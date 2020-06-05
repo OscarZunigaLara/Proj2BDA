@@ -1,4 +1,5 @@
 import pandas
+from openpyxl.utils import dataframe
 from sklearn import svm
 
 import sklearn
@@ -14,6 +15,7 @@ import numpy as np
 def readCVS():
     data = pandas.read_csv("covid_19_data.csv")
     data.head
+    data = data[data["Country/Region"].str.contains("US")]
 
     print(data)
 
