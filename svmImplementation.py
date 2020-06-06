@@ -18,8 +18,6 @@ def readCVS():
     data = data[data["Country/Region"].str.contains("US")]
 
 
-
-
     print(data)
 
     return data
@@ -97,6 +95,13 @@ def svm():
     ypred = regrCases.predict([[5780]])
     print("CASES PREDICTION FOR ID 5780",ypred)
 
+    prediccionCASOS50dias =[]
+
+    for i in range(0,50):
+        prediccionCASOS50dias.append(regrCases.predict([[5744 + 1]]))
+
+    print(prediccionCASOS50dias)
+
 
     regrDeaths = sklearn.svm.SVR()
     regrDeaths.fit(newID, DEATHS)
@@ -108,10 +113,27 @@ def svm():
     ypred = regrDeaths.predict([[5780]])
     print("DEATHS PREDICTION FOR ID 5780",ypred)
 
+    prediccionMuertes50Dias =[]
+
+    for i in range(0,50):
+        prediccionMuertes50Dias.append(regrDeaths.predict([[5744 + i]]))
+    print(prediccionMuertes50Dias)
+
     plt.plot(newID, CONFIRMED, color='blue', label = "CASES")
     plt.plot(newID, DEATHS, color='red', label = "DEATHS")
     plt.legend(loc = 'upper left', frameon = False)
     plt.show()
+    sig50 =[]
+    for i in range(50):
+        sig50.append(i)
+
+    plt.plot(sig50, prediccionCASOS50dias, color='blue', label="CASES")
+    plt.legend(loc='upper left', frameon=False)
+    plt.show()
+    plt.plot(sig50, prediccionMuertes50Dias, color='red', label="DEATHS")
+    plt.legend(loc='upper left', frameon=False)
+    plt.show()
+
     print("END")
 if __name__ == '__main__':
     svm()
