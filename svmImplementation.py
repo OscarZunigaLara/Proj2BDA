@@ -80,18 +80,25 @@ def svm():
     for x in X:
         newX.append(int(x))
     #print(newX)
+    print("SIZE OF")
+    print(len(ID))
+
+    newID = []
+    for i in range(0, len(ID)):
+        newID.append([i])
 
     regr = sklearn.svm.SVR()
-    regr.fit(ID, X)
+    regr.fit(newID, X)
 
-    ypred = regr.predict([[34215]])
+    ypred = regr.predict([[5750]])
     print(ypred)
+
 
     ypred = regr.predict(X)
     print(ypred)
 
 
-    plt.plot(ID, X, color='red')
+    plt.plot(newID, X, color='red')
     plt.show()
     print("END")
 if __name__ == '__main__':
