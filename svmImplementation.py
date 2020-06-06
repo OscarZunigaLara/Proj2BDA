@@ -94,6 +94,8 @@ def svm():
     print(ypred)
 
 
+
+
     ypred = regr.predict(X)
     print(ypred)
 
