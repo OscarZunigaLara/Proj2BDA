@@ -53,31 +53,31 @@ def svm():
     print("https://www.kaggle.com/sudalairajkumar/novel-corona-virus-2019-dataset/data?select=covid_19_data.csv")
     data = readCVS()
     ID = data.iloc[:, 0].values.reshape(-1, 1)  # values converts it into a numpy array
-    X = data.iloc[:, 5].values.reshape(-1, 1)  # values converts it into a numpy array
-    Y = data.iloc[:, 6].values.reshape(-1, 1)  # -1 means that calculate the dimension of rows, but have 1 column
+    CONFIRMED = data.iloc[:, 5].values.reshape(-1, 1)  # values converts it into a numpy array
+    DEATHS = data.iloc[:, 6].values.reshape(-1, 1)  # -1 means that calculate the dimension of rows, but have 1 column
     print("ID")
     print(ID)
     print("CONFIRMED")
-    print(X)
+    print(CONFIRMED)
     print("DEATHS")
-    print(Y)
+    print(DEATHS)
     infectados = 0
-    for x in X:
+    for x in CONFIRMED:
         infectados += x[0]
     muertos = 0
-    for x in Y:
+    for x in DEATHS:
         muertos += x[0]
 
     print(infectados)
     print(muertos)
     newY = []
-    for x in Y:
+    for x in DEATHS:
         #print(x[0])
         newY.append(int(x))
     #print(newY)
 
     newX = []
-    for x in X:
+    for x in CONFIRMED:
         newX.append(int(x))
     #print(newX)
     print("SIZE OF")
@@ -88,7 +88,7 @@ def svm():
         newID.append([i])
 
     regr = sklearn.svm.SVR()
-    regr.fit(newID, X)
+    regr.fit(newID, CONFIRMED)
 
     ypred = regr.predict([[5750]])
     print(ypred)
@@ -96,11 +96,11 @@ def svm():
 
 
 
-    ypred = regr.predict(X)
+    ypred = regr.predict(CONFIRMED)
     print(ypred)
 
 
-    plt.plot(newID, X, color='red')
+    plt.plot(newID, CONFIRMED, color='red')
     plt.show()
     print("END")
 if __name__ == '__main__':
