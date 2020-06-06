@@ -17,6 +17,9 @@ def readCVS():
     data.head
     data = data[data["Country/Region"].str.contains("US")]
 
+
+
+
     print(data)
 
     return data
