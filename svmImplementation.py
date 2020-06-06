@@ -87,20 +87,30 @@ def svm():
     for i in range(0, len(ID)):
         newID.append([i])
 
-    regr = sklearn.svm.SVR()
-    regr.fit(newID, CONFIRMED)
+    regrCases = sklearn.svm.SVR()
+    regrCases.fit(newID, CONFIRMED)
 
-    ypred = regr.predict([[5750]])
-    print(ypred)
-
-
-
-
-    ypred = regr.predict(CONFIRMED)
-    print(ypred)
+    ypred = regrCases.predict([[5750]])
+    print("CASES: PREDICTION FOR ID 5750",ypred)
+    ypred = regrCases.predict([[5751]])
+    print("CASES: PREDICTION FOR ID 5751",ypred)
+    ypred = regrCases.predict([[5780]])
+    print("CASES PREDICTION FOR ID 5780",ypred)
 
 
-    plt.plot(newID, CONFIRMED, color='red')
+    regrDeaths = sklearn.svm.SVR()
+    regrDeaths.fit(newID, DEATHS)
+
+    ypred = regrDeaths.predict([[5750]])
+    print("DEATHS: PREDICTION FOR ID 5750",ypred)
+    ypred = regrDeaths.predict([[5751]])
+    print("DEATHS: PREDICTION FOR ID 5751",ypred)
+    ypred = regrDeaths.predict([[5780]])
+    print("DEATHS PREDICTION FOR ID 5780",ypred)
+
+    plt.plot(newID, CONFIRMED, color='blue', label = "CASES")
+    plt.plot(newID, DEATHS, color='red', label = "DEATHS")
+    plt.legend(loc = 'upper left', frameon = False)
     plt.show()
     print("END")
 if __name__ == '__main__':
